@@ -1,7 +1,9 @@
 include ~/Project/PWN/docker/makefile
 
-NAME = 
+NAME =
+TAG =
+TAGNAME = shangkuei/${NAME}${TAG}
 HOST_PORT = 1234
-SERV_PORT = 
+SERV_PORT =
 PWN = ~/Project/PWN
 
