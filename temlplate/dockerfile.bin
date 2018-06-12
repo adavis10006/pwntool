@@ -1,0 +1,32 @@
+FROM ubuntu:14.04
+
+RUN dpkg --add-architecture i386
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y libc6:i386
+RUN apt-get install -y gcc socat libreadline-dev make
+
+
+# create users
+RUN useradd -ms /bin/bash evil_binary
+
+# build
+RUN echo "kernel.randomize_va_space = 0" > /etc/sysctl.d/01-disable-aslr.conf
+RUN chown -R root:evil_binary /home/evil_binary/
+RUN chmod 750 /home/evil_binary
+RUN echo "SHELLKEY" > /home/evil_binary/flag
+RUN chown root:evil_binary /home/evil_binary/flag
+RUN chmod 440 /home/evil_binary/flag
+RUN chmod 740 /usr/bin/top
+RUN chmod 740 /bin/ps
+RUN chmod 740 /usr/bin/pgrep
+RUN export TERM=xterm
+
+WORKDIR /home/evil_binary/
+COPY evil_binary /home/evil_binary/evil_binary
+RUN chmod 750 /home/evil_binary/evil_binary
+RUN chown root:evil_binary /home/evil_binary/evil_binary
+
+USER evil_binary
+
+EXPOSE 8000
+CMD socat -T10 TCP-LISTEN:8000,reuseaddr,fork EXEC:/home/evil_binary/evil_binary
