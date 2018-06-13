@@ -49,7 +49,7 @@ debug:
 			docker run -ti --rm --privileged \
 				--name ${dbg} \
 				--volume `pwd`:/samples \
-				--volume ~/Project/PWN/docker/script:/script \
+				--volume ${PWN_PATH}/script:/script \
 				--security-opt seccomp=unconfined \
 				--security-opt apparmor=unconfined \
 				--cap-add=SYS_ADMIN \
@@ -59,7 +59,7 @@ debug:
 			docker run -ti --rm --privileged \
 				--name pwndbg \
 				--volume `pwd`:/samples \
-				--volume ~/Project/PWN/docker/script:/script \
+				--volume ${PWN_PATH}/script:/script \
 				--security-opt seccomp=unconfined \
 				--security-opt apparmor=unconfined \
 				--cap-add=SYS_ADMIN \
@@ -70,7 +70,7 @@ debug:
 			docker run -ti --rm --privileged \
 				--name ${dbg} \
 				--volume `pwd`:/samples \
-				--volume ~/Project/PWN/docker/script:/script \
+				--volume ${PWN_PATH}/script:/script \
 				--security-opt seccomp=unconfined \
 				--security-opt apparmor=unconfined \
 				--cap-add=SYS_ADMIN \
@@ -80,7 +80,7 @@ debug:
 			docker run -ti --rm --privileged \
 				--name pwndbg \
 				--volume `pwd`:/samples \
-				--volume ~/Project/PWN/docker/script:/script \
+				--volume ${PWN_PATH}/script:/script \
 				--security-opt seccomp=unconfined \
 				--security-opt apparmor=unconfined \
 				--cap-add=SYS_ADMIN \
@@ -93,7 +93,7 @@ pwn:
 		--name pwn \
 		--network=${NAME}-net \
 		--volume `pwd`:/samples \
-		--volume ~/Project/PWN/docker/script:/script \
+		--volume ${PWN_PATH}/script:/script \
 		--security-opt seccomp:unconfined \
 		--workdir=/samples \
 		shangkuei/pwndbg:latest
